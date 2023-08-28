@@ -4,8 +4,8 @@ local core = getgenv().gamingchairCore
 local interface = {}
 
 function waitforCore()
-    repeat task.wait() until getgenv().gamingChairCore
-    core = getgenv().gamingChairCore
+    repeat task.wait() until getgenv().gamingchairCore
+    core = getgenv().gamingchairCore
 end
 
 function initWindow()
