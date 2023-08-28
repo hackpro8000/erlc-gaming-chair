@@ -110,7 +110,6 @@ end)
 core.start = core.safeFunction(function()
     getgenv().gamingchairCore = core
 
-    core._trove:Add(core.onPropertyChanged)
     core._trove:Add(function()
         getgenv().gamingchairCore = core
     end)
