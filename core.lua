@@ -62,7 +62,9 @@ function onVehicleAdded(vehicle)
 end
 
 function onVehicleCollisionChange()
-    handleVehicleCollisions()
+    for _, vehicle in pairs(workspace.Vehicle:GetChildren()) do
+        handleVehicleCollisions(vehicle)
+    end
 end
 
 function whenPropertyChanged(name, value, oldValue)
