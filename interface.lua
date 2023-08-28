@@ -69,6 +69,14 @@ function addWindowContent()
                 core.changeProperty("carBoosterKeybind", keyCode)
             end
         }
+
+        local vehicleAntiflipToggle = vehicleSection:Toggle {
+            Name = "Vehicle Antiflip",
+            Default = true,
+            Callback = function(on)
+                core.changeProperty("carAntiflipEnabled", on)
+            end
+        }
     end
     
 end

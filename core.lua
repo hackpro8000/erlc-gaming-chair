@@ -15,6 +15,7 @@ core.properties = {
     carBoosterEnabled = false,
     carBoosterForce = 1000,
     carBoosterKeybind = Enum.KeyCode.LeftControl,
+    carAntiflipEnabled = false,
 }
 core.updateTasks = {}
 core.onPropertyChanged = Signal.new()
@@ -91,6 +92,20 @@ core.updateTasks.nitroBoost = function()
         if ownVehicleBase then
             ownVehicleBase:ApplyImpulse(ownVehicleBase.CFrame.LookVector * core.properties.carBoosterForce)
         end
+    end
+end
+
+core.updateTasks.antiFlip = function()
+    local ownVehicle = getOwnVehicle()
+
+    if core.properties.carAntiflipEnabled and ownVehicle then
+        local carCF = ownVehicle:GetPivot()
+    
+        local carEulerAngles = Vector3.new(carCF:ToEulerAnglesYXZ()) * math.deg(1)
+
+        local clampedEuler = Vector3.new(math.clamp(carEulerAngles.X, -60, 60), carEulerAngles.Y, math.clamp(carEulerAngles.Z, -60, 60)) * math.rad(1)
+
+        ownVehicle:PivotTo(CFrame.new(carCF.Position) * CFrame.fromEulerAnglesYXZ(clampedEuler.X, clampedEuler.Y, clampedEuler.Z))
     end
 end
 
