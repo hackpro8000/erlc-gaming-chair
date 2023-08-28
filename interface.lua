@@ -99,6 +99,19 @@ function addWindowContent()
             end
         }
         
+        -- para sa character
+
+        local characterSection = interface.Window:Section {
+            Name = "Character"
+        }
+
+        local spidermanToggle = characterSection:Toggle {
+            Name = "Become Spiderman",
+            Default = false,
+            Callback = function(value)
+                core.changeProperty("spidermanEnabled", value)
+            end
+        }
     end
     
 end

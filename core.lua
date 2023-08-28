@@ -18,10 +18,28 @@ core.properties = {
     carAntiflipEnabled = false,
     carForcedTurningEnabled = false,
     carForcedTurningSpeed = 10,
+
+    spidermanEnabled = false,
 }
 core.updateTasks = {}
 core.onPropertyChanged = Signal.new()
 
+
+function core.safeFunction(fn, shouldWait)
+    return function(...)
+        if getgenv().gamingChairSafe then
+            return fn(...)
+        else
+            if shouldWait then
+                repeat
+                    task.wait()
+                until getgenv().gamingChairSafe
+
+                return fn(...)
+            end
+        end
+    end
+end
 
 
 function childAdded(inst, fn)
@@ -88,6 +106,12 @@ function getXAxis()
     return (leftDown and -1) or (rightDown and 1) or 0
 end
 
+local climbableTruss = Instance.new("TrussPart")
+climbableTruss.Name = "JHWEKHYKJHYWJHYJWWTWRWRWERWRWERWER"
+climbableTruss.Anchored = true
+climbableTruss.Transparency = 1
+climbableTruss.Size = Vector3.new(2, 8, 2)
+
 -- nitro boost
 core.updateTasks.nitroBoost = function()
     if UserInputService:GetFocusedTextBox() then
@@ -130,6 +154,22 @@ core.updateTasks.forcedTurning = function()
     end
 end
 
+core.updateTasks.spiderman = core.safeFunction(function()
+    if core.properties.spidermanEnabled then
+        local character = LocalPlr.Character
+        local characterCF = character and character:GetPivot()
+
+        local params = RaycastParams.new()
+        params.FilterDescendantsInstances = {character, climbableTruss}
+
+        if character then
+            local ray = workspace:Raycast(characterCF.Position, characterCF.LookVector * 1.65, params)
+            
+            climbableTruss.Position = ray.Position
+        end
+    end
+end)
+
 
 -- core stuff below
 function removeOldCore()
@@ -137,22 +177,6 @@ function removeOldCore()
 
     if old_core then
         old_core.clean()
-    end
-end
-
-function core.safeFunction(fn, shouldWait)
-    return function(...)
-        if getgenv().gamingChairSafe then
-            return fn(...)
-        else
-            if shouldWait then
-                repeat
-                    task.wait()
-                until getgenv().gamingChairSafe
-
-                return fn(...)
-            end
-        end
     end
 end
 
