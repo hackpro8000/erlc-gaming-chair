@@ -38,7 +38,7 @@ function addWindowContent()
             Name = "Vehicle Collisions",
             Default = true,
             callback = function(on)
-                core.properties.carCollisionsEnabled = on
+                core.changeProperty("carCollisionsEnabled", on)
             end
         }
     end

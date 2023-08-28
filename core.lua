@@ -48,9 +48,9 @@ function handleVehicleCollisions(vehicle)
     local ownVehicle = getOwnVehicle()
     local isOwnVehicle = vehicle == ownVehicle
 
-    for _, basepart in pairs(vehicle:GetDescendants()) do
-        if basepart:IsA "BasePart" then
-            if not isOwnVehicle then
+    if not isOwnVehicle then
+        for _, basepart in pairs(vehicle:GetDescendants()) do
+            if basepart:IsA "BasePart" then
                 basepart.CanCollide = core.properties.carCollisionsEnabled
             end
         end
