@@ -6,6 +6,7 @@ local interface = {}
 function waitforCore()
     repeat task.wait() until getgenv().gamingchairCore
     core = getgenv().gamingchairCore
+    print("core found! loading interface...")
 end
 
 function initWindow()
