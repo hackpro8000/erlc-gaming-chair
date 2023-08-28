@@ -4,7 +4,9 @@ local RunService = game:GetService("RunService")
 local Signal = loadstring(game:HttpGet('https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua'))()
 local Trove = loadstring(game:HttpGet('https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/trove/init.lua'))()
 
-local core = setmetatable({}, Trove.new())
+local core = {
+    _trove = Trove.new()
+}
 core.properties = {
     carCollisionsEnabled = true,
     carBoosterEnabled = false,
@@ -41,21 +43,21 @@ end
 core.start = core.safeFunction(function()
     getgenv().gamingchairCore = core
 
-    core:Add(function()
+    core._trove:Add(function()
         getgenv().gamingchairCore = core
     end)
 
-    core:Add(RunService.Heartbeat:Connect(function(dt) core.deltaTime = dt
+    core._trove:Add(RunService.Heartbeat:Connect(function(dt) core.deltaTime = dt
         core.update()
     end))
 end, true)
 
-core.update = core.safeFunction(function()
+core._trove.update = core.safeFunction(function()
     
 end)
 
 function core.clean()
-    core:Clean()
+    core._trove:Clean()
 end
 
 return core

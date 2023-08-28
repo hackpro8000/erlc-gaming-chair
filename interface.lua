@@ -10,7 +10,7 @@ function interface.start()
         ToggleKey = Enum.KeyCode.RightShift,
     }
 
-    core:Add(interface.Window)
+    core._trove:Add(interface.Window)
 end
 
 return interface
