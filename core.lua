@@ -52,7 +52,7 @@ core.start = core.safeFunction(function()
     end))
 end, true)
 
-core._trove.update = core.safeFunction(function()
+core.update = core.safeFunction(function()
     
 end)
 
