@@ -16,6 +16,8 @@ core.properties = {
     carBoosterForce = 1000,
     carBoosterKeybind = Enum.KeyCode.LeftControl,
     carAntiflipEnabled = false,
+    carForcedTurningEnabled = false,
+    carForcedTurningSpeed = 10,
 }
 core.updateTasks = {}
 core.onPropertyChanged = Signal.new()
@@ -79,6 +81,13 @@ end
 core._trove:Add(childAdded(workspace.Vehicles, onVehicleAdded))
 core._trove:Add(core.onPropertyChanged:Connect(whenPropertyChanged))
 
+function getXAxis()
+    local leftDown = UserInputService:IsKeyDown(Enum.KeyCode.A)
+    local rightDown = UserInputService:IsKeyDown(Enum.KeyCode.D)
+
+    return (leftDown and -1) or (rightDown and 1) or 0
+end
+
 -- nitro boost
 core.updateTasks.nitroBoost = function()
     if UserInputService:GetFocusedTextBox() then
@@ -106,6 +115,18 @@ core.updateTasks.antiFlip = function()
         local clampedEuler = Vector3.new(math.clamp(carEulerAngles.X, -60, 60), carEulerAngles.Y, math.clamp(carEulerAngles.Z, -60, 60)) * math.rad(1)
 
         ownVehicle:PivotTo(CFrame.new(carCF.Position) * CFrame.fromEulerAnglesYXZ(clampedEuler.X, clampedEuler.Y, clampedEuler.Z))
+    end
+end
+
+core.updateTasks.forcedTurning = function()
+    local deltaTime = core.deltaTime
+
+    if core.properties.carForcedTurningEnabled and ownVehicle then
+        local carCF = ownVehicle:GetPivot()
+    
+        local carEulerAngles = Vector3.new(carCF:ToEulerAnglesYXZ()) * math.deg(1)
+
+        ownVehicle:PivotTo(carCF * CFrame.Angles(0, core.properties.carForcedTurningSpeed * deltaTime * getXAxis(), 0))
     end
 end
 

@@ -69,14 +69,36 @@ function addWindowContent()
                 core.changeProperty("carBoosterKeybind", keyCode)
             end
         }
+        vehicleSection.vehicleNitroBoostKeybind = vehicleNitroBoostKeybind
 
         local vehicleAntiflipToggle = vehicleSection:Toggle {
             Name = "Vehicle Antiflip",
-            Default = true,
+            Default = false,
             Callback = function(on)
                 core.changeProperty("carAntiflipEnabled", on)
             end
         }
+        vehicleSection.vehicleAntiflipToggle = vehicleAntiflipToggle
+
+        local vehicleForcedTurningToggle = vehicleSection:Toggle {
+            Name = "Vehicle Forced Turning",
+            Default = false,
+            Callback = function(on)
+                core.changeProperty("carForcedTurningEnabled", on)
+            end
+        }
+        vehicleSection.vehicleForcedTurningToggle = vehicleForcedTurningToggle
+
+        vehicleForcedTurningSlider = vehicleSection:Slider {
+            Name = "Vehicle Forced Turning Speed",
+            Default = 1000,
+            Min = 0,
+            Max = 10,
+            Callback = function(value)
+                core.changeProperty("carForcedTurningSpeed", value)
+            end
+        }
+        
     end
     
 end
