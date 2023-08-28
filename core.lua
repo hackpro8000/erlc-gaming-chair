@@ -111,7 +111,7 @@ core.start = core.safeFunction(function()
     getgenv().gamingchairCore = core
 
     core._trove:Add(function()
-        getgenv().gamingchairCore = core
+        getgenv().gamingchairCore = nil
     end)
 
     core._trove:Add(RunService.Heartbeat:Connect(function(dt) core.deltaTime = dt
