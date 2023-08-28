@@ -1,5 +1,6 @@
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
 
 local LocalPlr = Players.LocalPlayer
 
@@ -12,10 +13,8 @@ local core = {
 core.properties = {
     carCollisionsEnabled = true,
     carBoosterEnabled = false,
-
-    inputs = {
-        carBooster = false,
-    }
+    carBoosterForce = 1000,
+    carBoosterKeybind = Enum.KeyCode.LeftControl,
 }
 core.updateTasks = {}
 core.onPropertyChanged = Signal.new()
@@ -44,13 +43,12 @@ function getOwnVehicle()
     end
 end
 
+-- vehicle collisions
 function handleVehicleCollisions(vehicle)
     local ownVehicle = getOwnVehicle()
     local isOwnVehicle = vehicle == ownVehicle
 
     if not isOwnVehicle then
-        print("handling collisions for", vehicle)
-
         for _, basepart in pairs(vehicle:GetDescendants()) do
             if basepart:IsA "BasePart" then
                 basepart.CanCollide = core.properties.carCollisionsEnabled
@@ -80,6 +78,21 @@ end
 core._trove:Add(childAdded(workspace.Vehicles, onVehicleAdded))
 core._trove:Add(core.onPropertyChanged:Connect(whenPropertyChanged))
 
+-- nitro boost
+core.updateTasks.nitroBoost = function()
+    if UserInputService:GetFocusedTextBox() then
+        return
+    end
+
+    local ownVehicle = getOwnVehicle()
+    local ownVehicleBase = ownVehicle and ownVehicle.PrimaryPart
+
+    if UserInputService:IsKeyDown(core.properties.carBoosterKeybind) then
+        if ownVehicleBase then
+            ownVehicleBase:ApplyImpulse(ownVehicleBase.CFrame.LookVector * core.properties.carBoosterForce)
+        end
+    end
+end
 
 
 -- core stuff below
