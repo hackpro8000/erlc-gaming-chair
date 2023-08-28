@@ -51,7 +51,6 @@ function handleVehicleCollisions(vehicle)
     if not isOwnVehicle then
         for _, basepart in pairs(vehicle:GetDescendants()) do
             if basepart:IsA "BasePart" then
-                print(core.properties.carCollisionsEnabled)
                 basepart.CanCollide = core.properties.carCollisionsEnabled
             end
         end
@@ -110,6 +109,7 @@ core.changeProperty = core.safeFunction(function(property, value)
     local oldValue = core.properties[property]
     core.properties[property] = value
     core.onPropertyChanged:Fire(property, value, oldValue)
+    print(property, value)
 end)
 
 core.start = core.safeFunction(function()
