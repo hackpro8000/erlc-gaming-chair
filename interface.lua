@@ -101,7 +101,7 @@ function addWindowContent()
         
         -- para sa character
 
-        local characterSection = interface.Window:Section {
+        local characterSection = trollingTab:Section {
             Name = "Character"
         }
 
