@@ -37,7 +37,7 @@ function addWindowContent()
         vehicleCollisionsToggle = vehicleSection:Toggle {
             Name = "Vehicle Collisions",
             Default = true,
-            callback = function(on)
+            Callback = function(on)
                 print("interface: "..on)
                 core.changeProperty("carCollisionsEnabled", on)
             end
