@@ -38,7 +38,7 @@ function addWindowContent()
             Name = "Vehicle Collisions",
             Default = true,
             Callback = function(on)
-                print("interface: "..on)
+                print("interface:",on)
                 core.changeProperty("carCollisionsEnabled", on)
             end
         }
