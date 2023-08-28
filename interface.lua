@@ -3,6 +3,11 @@ local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/Loco-CT
 local core = getgenv().gamingchairCore
 local interface = {}
 
+function waitforCore()
+    repeat task.wait() until getgenv().gamingChairCore
+    core = getgenv().gamingChairCore
+end
+
 function initWindow()
     interface.Window = UILib:Create {
         Name = "ERLC Gaming Chair",
@@ -38,6 +43,7 @@ function addWindowContent()
 end
 
 function interface.start()
+    waitforCore()
     initWindow()
     addWindowContent()
 end
