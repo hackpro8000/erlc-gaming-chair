@@ -50,7 +50,9 @@ function handleVehicleCollisions(vehicle)
 
     for _, basepart in pairs(vehicle:GetDescendants()) do
         if basepart:IsA "BasePart" then
-            basepart.CanCollide = not isOwnVehicle and core.properties.carCollisionsEnabled
+            if not isOwnVehicle then
+                basepart.CanCollide = core.properties.carCollisionsEnabled
+            end
         end
     end
 end
