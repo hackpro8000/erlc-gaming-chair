@@ -64,7 +64,7 @@ function onVehicleAdded(vehicle)
 end
 
 function onVehicleCollisionChange()
-    for _, vehicle in pairs(workspace.Vehicle:GetChildren()) do
+    for _, vehicle in pairs(workspace.Vehicles:GetChildren()) do
         handleVehicleCollisions(vehicle)
     end
 end
