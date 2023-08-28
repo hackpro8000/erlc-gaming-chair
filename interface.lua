@@ -102,7 +102,8 @@ function addWindowContent()
         -- para sa character
 
         local characterSection = trollingTab:Section {
-            Name = "Character"
+            Name = "Character",
+            Color = Color3.new(0.85, 0.5, 0),
         }
 
         local spidermanToggle = characterSection:Toggle {
