@@ -16,7 +16,9 @@ function initWindow()
         ToggleKey = Enum.KeyCode.RightShift,
     }
 
-    core._trove:Add(interface.Window)
+    core._trove:Add(function()
+        interface.Window:Destroy()
+    end)
 end
 
 function addWindowContent()
