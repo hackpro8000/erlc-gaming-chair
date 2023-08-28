@@ -165,7 +165,9 @@ core.updateTasks.spiderman = core.safeFunction(function()
         if character then
             local ray = workspace:Raycast(characterCF.Position, characterCF.LookVector * 1.65, params)
             
-            climbableTruss.Position = ray.Position
+            if ray then
+                climbableTruss.Position = ray.Position
+            end
         end
     end
 end)
