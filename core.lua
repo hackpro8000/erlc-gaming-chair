@@ -77,7 +77,7 @@ core._trove:Add(core.onPropertyChanged:Connect(whenPropertyChanged))
 
 
 -- core stuff below
-function getOldCore()
+function removeOldCore()
     local old_core = getgenv().gamingchairCore
 
     if old_core then
@@ -108,10 +108,11 @@ core.changeProperty = core.safeFunction(function(property, value)
 end)
 
 core.start = core.safeFunction(function()
+    removeOldCore()
     getgenv().gamingchairCore = core
 
     core._trove:Add(function()
-        getgenv().gamingchairCore = nil
+        getgenv().gamingchairCore = core
     end)
 
     core._trove:Add(RunService.Heartbeat:Connect(function(dt) core.deltaTime = dt
