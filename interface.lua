@@ -89,13 +89,23 @@ function addWindowContent()
         }
         vehicleSection.vehicleForcedTurningToggle = vehicleForcedTurningToggle
 
-        vehicleForcedTurningSlider = vehicleSection:Slider {
+        local vehicleForcedTurningSlider = vehicleSection:Slider {
             Name = "Vehicle Forced Turning Speed",
             Default = 1.25,
             Min = 0,
             Max = 10,
             Callback = function(value)
                 core.changeProperty("carForcedTurningSpeed", value)
+            end
+        }
+
+        local vehicleWheelSizeMultiplierSlider = vehicleSection:Slider{
+            Name = "Vehicle Wheel Size Multiplier",
+            Default = 1,
+            Min = 0,
+            Max = 10,
+            Callback = function(value)
+                core.changeProperty("carWheelSizeMult", value)
             end
         }
         

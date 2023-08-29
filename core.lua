@@ -18,6 +18,7 @@ core.properties = {
     carAntiflipEnabled = false,
     carForcedTurningEnabled = false,
     carForcedTurningSpeed = 10,
+    carAntiTirePop = false,
 
     spidermanEnabled = false,
 }
@@ -80,6 +81,10 @@ end
 
 function onVehicleAdded(vehicle)
     local ownVehicle = getOwnVehicle()
+
+    if vehicle == ownVehicle then
+        ownVehicle:WaitForChild("Base").CanTouch = false
+    end
 
     handleVehicleCollisions(vehicle)
 end
@@ -161,7 +166,7 @@ core.updateTasks.forcedTurning = function()
         
         forcedTurningAngle = forcedTurningAngle - core.properties.carForcedTurningSpeed * deltaTime * getXAxis()
 
-        ownVehicle:PivotTo(CFrame.new(carCF.Position) * CFrame.Angles(0, math.rad(forcedTurningAngle), 0))
+        ownVehicle:PivotTo(CFrame.new(carCF.Position) * CFrame.Angles(0, forcedTurningAngle, 0))
     end
 end
 
