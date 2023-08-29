@@ -159,7 +159,7 @@ core.updateTasks.forcedTurning = function()
             forcedTurningAngle = math.rad(carEulerAngles.Y)
         end
         
-        forcedTurningAngle = forcedTurningAngle - core.properties.carForcedTurningSpeed * deltaTime
+        forcedTurningAngle = forcedTurningAngle - core.properties.carForcedTurningSpeed * deltaTime * getXAxis()
 
         ownVehicle:PivotTo(CFrame.new(carCF.Position) * CFrame.Angles(0, math.rad(forcedTurningAngle), 0))
     end
