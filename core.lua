@@ -145,6 +145,8 @@ end
 core.updateTasks.forcedTurning = function()
     local deltaTime = core.deltaTime
 
+    local ownVehicle = getOwnVehicle()
+
     if core.properties.carForcedTurningEnabled and ownVehicle then
         local carCF = ownVehicle:GetPivot()
     
@@ -166,7 +168,7 @@ core.updateTasks.spiderman = core.safeFunction(function()
             local ray = workspace:Raycast(characterCF.Position, characterCF.LookVector * 1.65, params)
             
             if ray then
-                climbableTruss.Position = ray.Position
+                climbableTruss.Position = ray.Position + ray.Normal
             end
         end
     end
