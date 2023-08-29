@@ -111,6 +111,7 @@ climbableTruss.Name = "JHWEKHYKJHYWJHYJWWTWRWRWERWRWERWER"
 climbableTruss.Anchored = true
 climbableTruss.Transparency = 1
 climbableTruss.Size = Vector3.new(2, 8, 2)
+climbableTruss.Parent = workspace
 
 -- nitro boost
 core.updateTasks.nitroBoost = function()
@@ -168,7 +169,7 @@ core.updateTasks.spiderman = core.safeFunction(function()
             local ray = workspace:Raycast(characterCF.Position, characterCF.LookVector * 1.65, params)
             
             if ray then
-                climbableTruss.Position = ray.Position + ray.Normal
+                climbableTruss.Position = ray.Position
             end
         end
     end
