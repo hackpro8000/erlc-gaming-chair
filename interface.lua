@@ -91,7 +91,7 @@ function addWindowContent()
 
         vehicleForcedTurningSlider = vehicleSection:Slider {
             Name = "Vehicle Forced Turning Speed",
-            Default = 1000,
+            Default = 1.25,
             Min = 0,
             Max = 10,
             Callback = function(value)
