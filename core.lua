@@ -143,17 +143,25 @@ core.updateTasks.antiFlip = function()
     end
 end
 
+local forcedTurningAngle = math.huge
 core.updateTasks.forcedTurning = function()
     local deltaTime = core.deltaTime
 
     local ownVehicle = getOwnVehicle()
 
     if core.properties.carForcedTurningEnabled and ownVehicle then
+
         local carCF = ownVehicle:GetPivot()
     
         local carEulerAngles = Vector3.new(carCF:ToEulerAnglesYXZ()) * math.deg(1)
 
-        ownVehicle:PivotTo(carCF * CFrame.Angles(0, core.properties.carForcedTurningSpeed * deltaTime * getXAxis(), 0))
+        if forcedTurningAngle == math.huge then
+            forcedTurningAngle = math.rad(carEulerAngles.Y)
+        end
+        
+        forcedTurningAngle = forcedTurningAngle - core.properties.carForcedTurningSpeed * deltaTime
+
+        ownVehicle:PivotTo(carCF * CFrame.Angles(0, forcedTurningAngle * getXAxis(), 0))
     end
 end
 
